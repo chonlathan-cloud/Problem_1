@@ -1,0 +1,34 @@
+# Dockerfile for Python Backend (FastAPI)
+
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim-buster
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install system dependencies needed for psycopg2-binary and reportlab
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the current working directory contents into the container at /app
+COPY ./backend/requirements.txt /app/requirements.txt
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
+COPY ./backend /app
+
+# Make src a package
+RUN touch src/__init__.py
+RUN touch src/models/__init__.py
+
+# Expose port 8000 for FastAPI
+EXPOSE 8000
+
+# Run the FastAPI application using Uvicorn
+# Assumes main.py is in src/
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
