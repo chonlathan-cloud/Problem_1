@@ -29,7 +29,7 @@ class AccountingEntryService:
         self.db.refresh(db_entry)
 
         # Generate PDF and unique reference number
-        unique_ref_number = f"REF-{datetime.now().strftime("%Y%m%d-%H%M%S-%f")}"
+        unique_ref_number = f"REF-{datetime.now().strftime('%Y%m%d-%H%M%S-%f')}"
         pdf_buffer = self.pdf_generator.generate_accounting_entry_pdf({
             "date": entry_data.date.isoformat(),
             "document_type": entry_data.document_type,
@@ -48,7 +48,7 @@ class AccountingEntryService:
         db_entry.gcs_pdf_link = gcs_pdf_link
 
         # Upload proof attachment to GCS
-        proof_filename = f"accounting_entries/proof/{db_entry.id}-{datetime.now().strftime("%Y%m%d%H%M%S")}.bin"
+        proof_filename = f"accounting_entries/proof/{db_entry.id}-{datetime.now().strftime('%Y%m%d%H%M%S')}.bin"
         proof_content = base64.b64decode(entry_data.attach_proof_base64)
         proof_attachment_link = self.gcs_client.upload_file(proof_content, proof_filename)
         db_entry.proof_attachment_link = proof_attachment_link

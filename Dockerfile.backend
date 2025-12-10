@@ -20,15 +20,17 @@ COPY ./backend/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code
-COPY ./backend /app
+COPY ./backend /app/backend
 
 # Make src a package
-RUN touch src/__init__.py
-RUN touch src/models/__init__.py
+RUN touch /app/backend/src/__init__.py
+RUN touch /app/backend/src/models/__init__.py
+
+# Set PYTHONPATH to include /app so backend package is found
+ENV PYTHONPATH=/app
 
 # Expose port 8000 for FastAPI
 EXPOSE 8000
 
 # Run the FastAPI application using Uvicorn
-# Assumes main.py is in src/
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "backend.src.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,9 +1,9 @@
-from datetime import date, datetime
+from datetime import date as DateType, datetime
 from typing import Optional
 from pydantic import BaseModel, Field, validator
 
 class CreateAccountingEntryRequest(BaseModel):
-    date: date = Field(..., description="The date of the accounting entry (YYYY-MM-DD).")
+    date: DateType = Field(..., description="The date of the accounting entry (YYYY-MM-DD).")
     document_type: str = Field(..., description="The type of document.")
     description: str = Field(..., description="A detailed description of the entry.")
     amount: float = Field(..., gt=0, description="The monetary amount of the entry. Must be greater than 0.")
@@ -14,13 +14,13 @@ class CreateAccountingEntryRequest(BaseModel):
 
     @validator('date')
     def date_not_in_future(cls, v):
-        if v > date.today():
+        if v > DateType.today():
             raise ValueError('Date cannot be in the future')
         return v
 
 class AccountingEntryResponse(BaseModel):
     id: str
-    date: date
+    date: DateType
     document_type: str
     description: str
     amount: float
