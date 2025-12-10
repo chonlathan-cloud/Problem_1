@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Accounting Entry API
+  version: 1.0.0
+  description: API for managing accounting entries, including creation, PDF generation, and GCS upload.
+
+servers:
+  - url: /api/v1
+    description: API Server
+
+paths:
+  /accounting-entries:
+    post:
+      summary: Create a new accounting entry
+      operationId: createAccountingEntry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountingEntryRequest'
+      responses:
+        '201':
+          description: Accounting entry successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingEntryResponse'
+        '400':
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CreateAccountingEntryRequest:
+      type: object
+      required:
+        - date
+        - document_type
+        - description
+        - amount
+        - vat
+        - recorder_id
+        - attach_proof_base64 # Assuming file is sent as base64 in request
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the accounting entry (YYYY-MM-DD).
+          example: '2025-12-09'
+        document_type:
+          type: string
+          description: The type of document.
+          example: 'Invoice'
+        description:
+          type: string
+          description: A detailed description of the entry.
+          example: 'Office supplies purchase'
+        amount:
+          type: number
+          format: float
+          minimum: 0.01
+          description: The monetary amount of the entry. Must be greater than 0.
+          example: 150.75
+        vat:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 7
+          description: The Value Added Tax percentage. Must be between 0 and 7 (inclusive).
+          example: 5.0
+        recorder_id:
+          type: string
+          description: Identifier of the employee who recorded the entry.
+          example: 'EMP123'
+        remarks:
+          type: string
+          nullable: true
+          description: Additional remarks or notes.
+          example: 'Urgent purchase'
+        attach_proof_base64:
+          type: string
+          format: byte
+          description: Base64 encoded content of the attached proof file (e.g., PDF, image).
+          example: 'JVBERi0xLjQKJcOkw...'
+
+    AccountingEntryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the created accounting entry.
+          readOnly: true
+          example: 'ACC-001-20251209-001'
+        date:
+          type: string
+          format: date
+          example: '2025-12-09'
+        document_type:
+          type: string
+          example: 'Invoice'
+        description:
+          type: string
+          example: 'Office supplies purchase'
+        amount:
+          type: number
+          format: float
+          example: 150.75
+        vat:
+          type: number
+          format: float
+          example: 5.0
+        recorder_id:
+          type: string
+          example: 'EMP123'
+        remarks:
+          type: string
+          nullable: true
+          example: 'Urgent purchase'
+        proof_attachment_link:
+          type: string
+          format: url
+          description: URL to the uploaded proof attachment in GCS.
+          example: 'https://storage.googleapis.com/my-bucket/proofs/proof-abc.pdf'
+        pdf_unique_ref_number:
+          type: string
+          description: Unique reference number for the generated PDF.
+          example: 'REF-20251209-001'
+        gcs_pdf_link:
+          type: string
+          format: url
+          description: URL to the generated PDF in GCS.
+          example: 'https://storage.googleapis.com/my-bucket/pdfs/ref-20251209-001.pdf'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2025-12-09T10:30:00Z'
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: A unique error code.
+          example: 'INVALID_INPUT'
+        message:
+          type: string
+          description: A human-readable error message.
+          example: 'Validation failed: Amount must be greater than 0.'
