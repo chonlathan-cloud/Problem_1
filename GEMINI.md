@@ -3,6 +3,7 @@
 Auto-generated from all feature plans. Last updated: 2025-12-10
 
 ## Active Technologies
+- `Google Cloud SQL for PostgreSQL` for accounting entries and audit logs. (001-record-accounting-entry)
 
 - Backend: `Python 3.10+`; Frontend: `TypeScript (React)` + Backend: `FastAPI`, `reportlab` (for PDF generation), `google-cloud-storage`, `SQLAlchemy`; Frontend: `axios` (for API calls), `React-specific libraries (e.g., React Router, state management library like Zustand/React Context, UI component library like Material-UI/Chakra UI, form handling with React Hook Form)` (001-record-accounting-entry)
 
@@ -22,6 +23,7 @@ cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLO
 Backend: `Python 3.10+`; Frontend: `TypeScript (React)`: Follow standard conventions
 
 ## Recent Changes
+- 001-record-accounting-entry: Added Backend: `Python 3.10+`; Frontend: `TypeScript (React)` + Backend: `FastAPI`, `reportlab` (for PDF generation), `google-cloud-storage`, `SQLAlchemy`; Frontend: `axios` (for API calls), `React-specific libraries (e.g., React Router, state management library like Zustand/React Context, UI component library like Material-UI/Chakra UI, form handling with React Hook Form)`
 
 - 001-record-accounting-entry: Added Backend: `Python 3.10+`; Frontend: `TypeScript (React)` + Backend: `FastAPI`, `reportlab` (for PDF generation), `google-cloud-storage`, `SQLAlchemy`; Frontend: `axios` (for API calls), `React-specific libraries (e.g., React Router, state management library like Zustand/React Context, UI component library like Material-UI/Chakra UI, form handling with React Hook Form)`
 
