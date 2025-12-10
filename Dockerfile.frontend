@@ -5,7 +5,8 @@ FROM node:20-alpine as builder
 
 WORKDIR /app
 
-COPY ./frontend/package.json ./frontend/package-lock.json ./frontend/
+# [FIX] Copy only package.json first (and lock file if exists via wildcard) to avoid error
+COPY ./frontend/package*.json ./frontend/
 
 # Install dependencies
 RUN cd frontend && npm install
