@@ -1,50 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Version change: None (initial creation) -> 1.0.0
+List of modified principles:
+  - Simplicity & Clarity (New)
+  - Test-Driven Development (TDD) (New)
+  - Security by Design (New)
+  - API-First Approach (New)
+  - Automated Quality Gates (New)
+Added sections:
+  - Development Standards
+  - Deployment Process
+Removed sections: None
+Templates requiring updates:
+  - .specify/templates/plan-template.md: ⚠ pending (Constitution Check section needs review against new principles)
+  - .specify/templates/spec-template.md: ✅ updated
+  - .specify/templates/tasks-template.md: ✅ updated
+  - .specify/templates/commands/*.md: ✅ updated
+Follow-up TODOs: None
+-->
+# Company Financial System Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Simplicity & Clarity
+Prioritize clear, readable, and maintainable code. Avoid unnecessary complexity and 'clever' solutions. Designs should be understandable by new team members quickly.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Test-Driven Development (TDD)
+All new features and bug fixes MUST be implemented using a TDD approach. Tests are written and approved before implementation begins, ensuring they fail initially and pass upon completion. This fosters robust, verifiable code.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Security by Design
+Security considerations MUST be integrated into every stage of the development lifecycle, from design to deployment. All data inputs must be validated, and least privilege access enforced for all components and users.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### API-First Approach
+New features requiring external or internal communication MUST define well-documented API contracts (e.g., OpenAPI) before implementation. APIs should be stable, versioned, and backward-compatible where possible.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Automated Quality Gates
+Code MUST pass all automated quality checks (linters, formatters, unit tests, integration tests) before being merged. Continuous integration pipelines are mandatory for all repositories.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Development Standards
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+All code MUST adhere to established style guides (e.g., PEP8 for Python, Airbnb for JavaScript). Pull requests require at least two approvals from designated team members. Critical vulnerabilities identified MUST be addressed within 24 hours.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Deployment Process
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+All deployments to production MUST follow a documented CI/CD pipeline, including automated testing and manual approval steps. Rollback procedures MUST be defined and tested for all major releases.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This Constitution supersedes all conflicting guidelines. Amendments require a formal proposal, team review, and a supermajority vote. All team members are responsible for upholding these principles. Violations found during code reviews or quality gates will block progression until resolved.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-10 | **Last Amended**: 2025-12-10
