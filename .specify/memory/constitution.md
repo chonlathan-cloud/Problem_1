@@ -31,7 +31,7 @@ All new features and bug fixes MUST be implemented using a TDD approach. Tests a
 Security considerations MUST be integrated into every stage of the development lifecycle, from design to deployment. All data inputs must be validated, and least privilege access enforced for all components and users.
 
 ### API-First Approach
-New features requiring external or internal communication MUST define well-documented API contracts (e.g., OpenAPI) before implementation. APIs should be stable, versioned, and backward-compatible where possible.
+New features requiring external or internal communication MUST define well-documented API contracts (e.g., GeminiAPI) before implementation. APIs should be stable, versioned, and backward-compatible where possible.
 
 ### Automated Quality Gates
 Code MUST pass all automated quality checks (linters, formatters, unit tests, integration tests) before being merged. Continuous integration pipelines are mandatory for all repositories.
