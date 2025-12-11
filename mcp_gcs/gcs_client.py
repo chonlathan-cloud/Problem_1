@@ -3,7 +3,7 @@ from google.cloud import storage
 import os
 from datetime import timedelta, datetime, timezone
 
-BUCKET_NAME = os.environ.get("GCS_PDF_BUCKET", "ps_1task")
+BUCKET_NAME = os.environ.get("GCS_PDF_BUCKET", "ps1task")
 
 storage_client = storage.Client()
 
