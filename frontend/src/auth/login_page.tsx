@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './auth_context';
+import { loginUser } from '../services/api_client';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, FormControl, FormLabel, Input, Heading, VStack, useToast } from '@chakra-ui/react';
 
@@ -10,20 +11,18 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleLogin = () => {
-    // In a real application, you'd send these credentials to a backend authentication endpoint
-    // and receive a JWT token.
-    if (username === 'employee' && password === 'password') {
-      const mockToken = 'mock_jwt_token'; // This should come from a successful API call
-      login(mockToken);
+  const handleLogin = async () => {
+    try {
+      const data = await loginUser(username, password);
+      login(data.access_token);
       toast({
         title: "Login successful.",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-      navigate('/record-entry'); // Redirect to protected page
-    } else {
+      navigate('/record-entry');
+    } catch (error) {
       toast({
         title: "Login failed.",
         description: "Invalid username or password.",

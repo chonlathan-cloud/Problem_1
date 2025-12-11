@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+        "gcs-pdf-tools": {
+            "command": "python",
+            "args": [
+                "-m",
+                "mcp_gcs.server"
+            ],
+            "env": {
+                "GCS_PDF_BUCKET": "ps_1task",
+                "GOOGLE_APPLICATION_CREDENTIALS": "/Users/chonlathansongsri/Documents/company/for test/LearningMCP/watschoolaccounting-cc64dbee7e47.json"
+            }
+        }
+    }
+}

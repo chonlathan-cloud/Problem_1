@@ -2,6 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from backend.src.config import settings
 from backend.src.models.base import Base
+from backend.src.models.audit_log import AuditLog
+from backend.src.models.user import User
 
 #SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL

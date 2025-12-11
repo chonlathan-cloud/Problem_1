@@ -15,7 +15,7 @@ router = APIRouter()
 def get_accounting_entry_service(db: Session = Depends(get_db)) -> AccountingEntryService:
     pdf_generator = PDFGenerator()
     gcs_client = GCSClient()
-    audit_log_service: AbstractAuditLogService = AuditLogService() # Concrete implementation for now
+    audit_log_service: AbstractAuditLogService = AuditLogService(db) # Pass DB session
     return AccountingEntryService(db, pdf_generator, gcs_client, audit_log_service)
 
 @router.post(

@@ -46,3 +46,16 @@ export const createAccountingEntry = async (payload: CreateAccountingEntryPayloa
   const response = await apiClient.post<AccountingEntryResponse>('/accounting-entries', payload);
   return response.data;
 };
+
+export const loginUser = async (username: string, password: string): Promise<{ access_token: string; token_type: string }> => {
+  const formData = new URLSearchParams();
+  formData.append('username', username);
+  formData.append('password', password);
+
+  const response = await apiClient.post<{ access_token: string; token_type: string }>('/auth/login', formData, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+  return response.data;
+};

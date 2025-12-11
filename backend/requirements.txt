@@ -1,8 +1,12 @@
 fastapi
+uvicorn
 sqlalchemy
 psycopg2-binary
 google-cloud-storage
 reportlab
 python-dotenv
+passlib[argon2]
+python-jose[cryptography]
+python-multipart
 alembic
 uvicorn

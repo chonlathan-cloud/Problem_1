@@ -12,13 +12,25 @@ class AbstractAuditLogService(ABC):
         """Logs an audit event."""
         pass
 
+from sqlalchemy.orm import Session
+from backend.src.models.audit_log import AuditLog
+
 class AuditLogService(AbstractAuditLogService):
-    # For now, a simple in-memory logger or placeholder.
-    # This will be replaced with a proper SQLAlchemy/DB implementation later.
+    def __init__(self, db: Session):
+        self.db = db
+
     def log_event(self,
                   user_id: str,
                   action_type: str,
                   target_entry_id: int,
                   details_of_change: Optional[str] = None) -> None:
-        print(f"[AUDIT LOG] {datetime.now()} - User: {user_id}, Action: {action_type}, "
-              f"Target ID: {target_entry_id}, Details: {details_of_change}")
+        audit_log = AuditLog(
+            user_id=user_id,
+            action_type=action_type,
+            target_entry_id=target_entry_id,
+            details=details_of_change
+        )
+        self.db.add(audit_log)
+        self.db.commit()
+        self.db.refresh(audit_log)
+        print(f"[AUDIT LOG] Saved to DB - ID: {audit_log.id}")

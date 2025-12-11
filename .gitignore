@@ -30,3 +30,4 @@ db_data/
 
 # Uvicorn
 uv.log
+*.json

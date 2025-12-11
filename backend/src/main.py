@@ -3,8 +3,10 @@ from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import JSONResponse
 
 from backend.src.api import accounting_entry_router
+from backend.src.api import auth_router
 from backend.src.database import init_db
 from backend.src.utils.error_handler import http_exception_handler, generic_exception_handler
+from fastapi.middleware.cors import CORSMiddleware
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -16,8 +18,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-from fastapi.middleware.cors import CORSMiddleware
-
+# Add CORS Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allows all origins
@@ -31,6 +32,7 @@ def on_startup():
     init_db()
     logger.info("Application startup complete.")
 
+app.include_router(auth_router.router, prefix="/api/v1/auth", tags=["auth"])
 app.include_router(accounting_entry_router.router, prefix="/api/v1")
 
 # Register exception handlers
